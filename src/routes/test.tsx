@@ -22,12 +22,13 @@ const  user: User[] = [
   {id:6, name: 'Jane Brown'},
   {id:7, name: 'John White'},
   {id:8, name: 'Jane White'},
-  
+
 ]
 
 function RouteComponent() {
   return (<>
   
+    
     <List<User> items={user} render={(item) => <Box key={item.id}>{item.name}</Box>}/>
   
   
