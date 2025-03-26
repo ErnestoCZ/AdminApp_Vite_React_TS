@@ -35,7 +35,7 @@ export const UserInputForm: FC = () => {
   return (
     <>
       <form onSubmit={handleSubmit(submitHandler)}>
-        <Flex direction={"column"}>
+        <Flex direction={"column"} gap={2}>
           <InputController
             control={control}
             name="firstName"
@@ -47,12 +47,12 @@ export const UserInputForm: FC = () => {
             placeholder="LastName"
           />
           <InputController control={control} name="email" placeholder="email" />
-          <Flex justifyContent={"space-between"}>
+          <Flex justifyContent={"flex-start"}>
             <Button
               type="reset"
               variant={"ghost"}
               colorPalette={"red"}
-              flex={"1 1 auto"}
+              flex={"0 1 auto"}
             >
               Reset
             </Button>
@@ -61,7 +61,7 @@ export const UserInputForm: FC = () => {
               disabled={isSubmitting}
               variant={"ghost"}
               colorPalette={"green"}
-              flex={"1 1 auto"}
+              flex={"0 1 auto"}
             >
               {isSubmitting ? "Submitting.. " : "Submit"}
             </Button>
