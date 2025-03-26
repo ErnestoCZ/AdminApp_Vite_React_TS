@@ -7,9 +7,12 @@
       "preset": "client-preset",
       "plugins": [
         "typescript",
-        "typescript-operations",
-        "typescript-react-apollo"
-      ]
+        "typescript-operations"
+      ],
+      "config" : {
+        "skipTypename": true,
+        "withHooks" : true
+      }
     }
   }
 }
