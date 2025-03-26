@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"vite\" \"graphql-codegen --watch \"",
+    "dev": "concurrently \"vite\" \"graphql-codegen --config codegen.json --watch \"",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "codegen": "graphql-codegen --watch --config codegen.json"
+    "codegen": "graphql-codegen --config codegen.json"
   },
   "dependencies": {
     "@apollo/client": "^3.13.5",
@@ -31,6 +31,9 @@
     "@graphql-codegen/cli": "5.0.5",
     "@graphql-codegen/client-preset": "4.7.0",
     "@graphql-codegen/typescript": "^4.1.5",
+    "@graphql-codegen/typescript-operations": "^4.5.1",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.2",
+    "@graphql-codegen/typescript-resolvers": "^4.4.4",
     "@hookform/devtools": "^4.3.3",
     "@parcel/watcher": "^2.5.1",
     "@tanstack/react-router-devtools": "^1.114.27",
