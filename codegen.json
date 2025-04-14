@@ -1,17 +1,19 @@
 {
   "overwrite": true,
   "schema": "http://localhost:4000/graphql",
-  "documents": "src/graphql/queries.ts",
+  "documents": "src/**/*.{gql,graphql}",
   "generates": {
     "src/generated/": {
       "preset": "client-preset",
       "plugins": [
-        "typescript",
-        "typescript-operations"
+      "typescript-react-apollo"
       ],
-      "config" : {
+      "config": {
+        "naminConvention": "dotCase",
+        "dedupeFragments": true,
         "skipTypename": true,
-        "withHooks" : true
+        "withHooks": true,
+        "noExport": true
       }
     }
   }
