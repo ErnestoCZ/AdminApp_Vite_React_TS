@@ -14,6 +14,7 @@ interface InputControllerProps<T extends FieldValues> {
   rules?: object;
   defaultValue?:string
   placeholder?: string
+  type?: string | "text" //TODO: Search for Proper type notation
 }
 
 
@@ -22,6 +23,7 @@ export const InputController=  <T extends FieldValues>({
   control,
   rules,
   placeholder,
+  type
 }: InputControllerProps<T>) => {
   return (
     <Controller
@@ -29,7 +31,7 @@ export const InputController=  <T extends FieldValues>({
       control={control}
       rules={rules}
       render={({ field: { onChange, onBlur, value, ref } }) => (
-        <Input onBlur={onBlur} onChange={onChange} value={value} ref={ref} placeholder={placeholder}/>
+        <Input onBlur={onBlur} onChange={onChange} value={value} ref={ref} placeholder={placeholder} type={type}/>
   )}
     />
   );
