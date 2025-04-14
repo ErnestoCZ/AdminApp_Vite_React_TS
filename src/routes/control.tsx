@@ -1,4 +1,4 @@
-import { Box, Button, Center, Flex, HStack, Input, Stack } from "@chakra-ui/react";
+import { Box, Button, Center, Flex, HStack, Input, Separator, Stack } from "@chakra-ui/react";
 import { createFileRoute } from "@tanstack/react-router";
 import { UserInputForm } from "@/components/UserInputForm";
 import { List } from "@/components/List";
@@ -7,6 +7,7 @@ import { useState } from "react";
 import { RiDeleteBinLine, RiEditLine } from "react-icons/ri";
 // import { useAllUsers } from '@/graphql/hooks'
 import { ListItem } from "@/components/ListItem";
+import { ConstantInputForm } from "@/components/ConstantInputForm";
 
 export const Route = createFileRoute("/control")({
   component: RouteComponent,
@@ -68,6 +69,8 @@ function RouteComponent() {
       >
         UserInputForm
         <UserInputForm />
+        <Separator></Separator>
+        <ConstantInputForm/>
       </Stack>
 
       <Stack
