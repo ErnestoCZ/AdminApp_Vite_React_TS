@@ -1,0 +1,24 @@
+# import {graphql} from '@/generated/gql'
+
+# export const GET_ALL_USERS_QUERY = graphql(`
+query Users($limit: Int, $offset: Int) {
+  Users(limit: $limit, offset: $offset) {
+    items {
+      id
+      firstName
+      lastName
+      email
+      status
+    }
+    totalCount
+  }
+}
+
+
+mutation CreateUser($userData: CreateUserInput!) {
+  createUser(userData: $userData) {
+    id
+    firstName
+    lastName
+  }
+}
