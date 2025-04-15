@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -36,9 +36,14 @@ const ConstantInputFormSchema = z.object({
 type ConstantInputFormValues = z.infer<typeof ConstantInputFormSchema>;
 
 export const ConstantInputForm: FC = () => {
-  const { control,reset, handleSubmit, formState: {isSubmitting, errors}, register } = useForm<ConstantInputFormValues>({
+  const {
+    control,
+    reset,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+  } = useForm<ConstantInputFormValues>({
     resolver: zodResolver(ConstantInputFormSchema),
-    defaultValues: {description: '', name: '', value: ''}
+    defaultValues: { description: "", name: "", value: undefined },
   });
 
   //TODO fetch current valid Constant values from database via GraphQL customHooks (generated)
@@ -74,7 +79,12 @@ export const ConstantInputForm: FC = () => {
           //Value Input
         }
         <Field.Root invalid={!!errors.value}>
-          <InputController control={control} name="value" type="number" placeholder="Value" />
+          <InputController
+            control={control}
+            name="value"
+            type="number"
+            placeholder="Value"
+          />
           <Field.ErrorText>{errors.value?.message}</Field.ErrorText>
         </Field.Root>
         {
@@ -82,30 +92,44 @@ export const ConstantInputForm: FC = () => {
           //TODO: Fix react hook form for this select component
         }
 
-        <Field.Root>
-          <Select.Root collection={constantTypesCollection}>
-            <Select.Control>
-              <Select.Trigger>
-                <Select.ValueText placeholder="Select Type for new Constant" />
-              </Select.Trigger>
-            </Select.Control>
-            <Portal>
-              <Select.Positioner>
-                <Select.Content {...register('type')}>
-                  {constantTypesCollection.items.map((type) => (
-                    <Select.Item item={type} key={type.value}>
-                      {type.label}
-                      <Select.ItemIndicator />
-                    </Select.Item>
-                  ))}
-                </Select.Content>
-              </Select.Positioner>
-            </Portal>
-          </Select.Root>
-          <Field.ErrorText></Field.ErrorText>
+        <Field.Root invalid={!!errors.type}>
+          <Controller
+            control={control}
+            name="type"
+            render={({ field: { name, onBlur, onChange, value } }) => {
+              return (
+                <Select.Root
+                  name={name}
+                  value={value}
+                  onValueChange={({ value }) => onChange(value)}
+                  onInteractOutside={() => onBlur()}
+                  collection={constantTypesCollection}
+                >
+                  <Select.Control>
+                    <Select.Trigger>
+                      <Select.ValueText placeholder="Select Type for new Constant" />
+                    </Select.Trigger>
+                  </Select.Control>
+                  <Portal>
+                    <Select.Positioner>
+                      <Select.Content>
+                        {constantTypesCollection.items.map((type) => (
+                          <Select.Item item={type} key={type.value}>
+                            {type.label}
+                            <Select.ItemIndicator />
+                          </Select.Item>
+                        ))}
+                      </Select.Content>
+                    </Select.Positioner>
+                  </Portal>
+                </Select.Root>
+              );
+            }}
+          />
+          <Field.ErrorText>{errors.type?.message}</Field.ErrorText>
         </Field.Root>
         {
-            //Form Buttons
+          //Form Buttons
         }
         <Flex justifyContent={"flex-start"}>
           <Button
@@ -113,7 +137,9 @@ export const ConstantInputForm: FC = () => {
             variant={"ghost"}
             colorPalette={"red"}
             flex={"0 1 auto"}
-            onClick={() => {reset()}}
+            onClick={() => {
+              reset();
+            }}
           >
             Reset
           </Button>
@@ -123,7 +149,7 @@ export const ConstantInputForm: FC = () => {
             colorPalette={"green"}
             flex={"0 1 auto"}
           >
-            Submit
+            {isSubmitting ? "Submitting..." : "Submit"}
           </Button>
         </Flex>
       </form>
